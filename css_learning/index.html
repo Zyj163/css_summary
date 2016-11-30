@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>css_learning</title>
+
+    <style>
+        .transform {
+            background-color: red;
+            width: 100px;
+            height: 100px;
+
+            /*transition: property duration timing-function delay;*/
+
+            /*transition: transform 2s;*/
+            transition: background-color 2s;
+        }
+
+        .transform:hover {
+            /*transform: none|transform-functions;*/
+
+            /*transform:rotate(70deg);*/
+            /*-ms-transform:rotate(70deg); 	!* IE 9 *!*/
+            /*-moz-transform:rotate(70deg); 	!* Firefox *!*/
+            /*-webkit-transform:rotate(70deg); !* Safari 和 Chrome *!*/
+            /*-o-transform:rotate(70deg); 	!* Opera *!*/
+
+            background-color: green;
+        }
+
+        .key-frame {
+            background-color: chocolate;
+            width: 100px;
+            height: 100px;
+
+            position: relative;
+
+            /*animation 属性是一个简写属性，用于设置六个动画属性：*/
+            /*animation-name*/
+            /*animation-duration*/
+            /*animation-timing-function*/
+            /*animation-delay*/
+            /*animation-iteration-count*/
+            /*animation-direction  alternate:反向动画,normal:回到初始位置再动画*/
+
+            /*linear*/
+            /*ease*/
+            /*ease-in*/
+            /*ease-out*/
+            /*ease-in-out*/
+            /*cubic-bezier(n,n,n,n)	在 cubic-bezier 函数中自己的值。可能的值是从 0 到 1 的数值。*/
+
+            animation: mymove 2s ease-in-out 0s infinite alternate;
+            -moz-animation: mymove 2s ease-in-out 0s infinite alternate; /* Firefox */
+            -webkit-animation: mymove 2s ease-in-out 0s infinite alternate; /* Safari and Chrome */
+            -o-animation: mymove 2s ease-in-out 0s infinite alternate; /* Opera */
+
+            /*跟ios一样*/
+            animation-fill-mode: forwards;
+        }
+
+        .key-frame:hover {
+            /*动画默认是运行的,可以设置为paused暂停动画*/
+            animation-play-state: paused;
+            -webkit-animation-play-state:paused;
+            -moz-animation-play-state: paused;
+            -o-animation-play-state: paused;
+        }
+
+        /*关键词 "from" 和 "to"，等价于 0% 和 100%,中间可以添加多个状态*/
+        /*@keyframes animationname {keyframes-selector {css-styles;}}*/
+        @keyframes mymove {
+            from {left: 0px}
+            to {left: 300px}
+        }
+
+        .box-sizing.border-box {
+            background-color: blue;
+            width: 100px;
+            height: 100px;
+
+            margin: 10px;
+            padding: 10px;
+            border: 2px solid black;
+
+            /*为元素设定的宽度和高度决定了元素的边框盒。
+            /*就是说，为元素指定的任何内边距和边框都将在已设定的宽度和高度内进行绘制。
+            /*通过从已设定的宽度和高度分别减去边框和内边距才能得到内容的宽度和高度。*/
+            box-sizing: border-box;
+        }
+
+        .box-sizing.content-box {
+            background-color: aqua;
+            width: 100px;
+            height: 100px;
+
+
+            margin: 10px;
+            padding: 10px;
+            border: 2px solid black;
+
+            /*这是由 CSS2.1 规定的宽度高度行为。默认
+            /*宽度和高度分别应用到元素的内容框。
+            /*在宽度和高度之外绘制元素的内边距和边框。*/
+            box-sizing: content-box;
+        }
+
+        .background-position {
+            background-image: url("sprite.png");
+            background-repeat: no-repeat;
+            /*指将图片向右移8px,向上移892px,也可以用%*/
+            background-position: 8px -892px;
+            height: 100px;
+        }
+
+        .v-center_container {
+            background-color: olive;
+            height: 100px;
+            width: 300px;
+
+            position: relative;
+        }
+
+        .v-center {
+            background-color: bisque;
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -50%);
+        }
+
+        .no-wrap_container {
+            background-color: brown;
+            width: 300px;
+        }
+
+        .no-wrap {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+    </style>
+
+</head>
+<body>
+    <!--动画,变形-->
+    <div class="transform transition"></div>
+
+    <div class="key-frame"></div>
+
+    <!--box-sizing-->
+    <div class="box-sizing border-box"></div>
+    <div class="box-sizing content-box"></div>
+
+    <!--截取图片-->
+    <div class="background-position"></div>
+
+    <!--块级标签垂直居中-->
+    <div class="v-center_container">
+        <div class="v-center">
+            看来方式老骥伏枥伤筋动骨快乐数据库连接上的法律觉得上了飞机失联的飞机德累斯顿减肥锻炼时间
+        </div>
+    </div>
+
+    <!--文字显示不全,用...代替-->
+    <div class="no-wrap_container">
+        <div class="no-wrap">
+            看来方式老骥伏枥伤筋动骨快乐数据库连接上的法律觉得上了飞机失联的飞机德累斯
+        </div>
+    </div>
+</body>
+</html>
