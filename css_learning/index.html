@@ -168,5 +168,59 @@
             看来方式老骥伏枥伤筋动骨快乐数据库连接上的法律觉得上了飞机失联的飞机德累斯
         </div>
     </div>
+
+
+    <!--使用js添加动画-->
+    <div class="transformjs" style="background-color: aqua; width: 100px; height: 100px"></div>
+    <script>
+        (function(){
+            var div = document.getElementsByClassName('transformjs')[0];
+            div.style.transition = 'background-color 2s';
+            setTimeout(function(){
+                div.style.backgroundColor = 'red';
+            })
+        })();
+    </script>
+
+    <div class="keyframejs" style="background-color: antiquewhite; width: 100px; height: 100px; position: relative"></div>
+    <script>
+        (function(){
+            var div = document.getElementsByClassName('keyframejs')[0];
+            div.style.animation = 'mymove 2s ease-in-out 0s infinite alternate'
+        })();
+    </script>
+
+    <div class="dynamickeyframejs" style="background-color: antiquewhite; width: 100px; height: 100px; position: relative"></div>
+    <script>
+        (function(){
+            var div = document.getElementsByClassName('dynamickeyframejs')[0];
+            div.style.animation = 'run 2s ease-in-out 0s infinite alternate';
+            var rule = '@keyframes run {\
+                            from {left: 0px;}\
+                            to {left: 300px; border-radius: 50%; background-color: aqua; transform: rotate(1440deg)}\
+                        }';
+            div.styleSheet = document.styleSheets[document.styleSheets.length - 1];
+            try {
+                div.styleSheet.insertRule(rule, div.styleSheet.rules.length);
+            } catch (e){}
+        })();
+    </script>
+
+    <div class="dynamickeyframejs2" style="background-color: antiquewhite; width: 100px; height: 100px; position: relative"></div>
+    <script>
+        (function(){
+            var div = document.getElementsByClassName('dynamickeyframejs2')[0];
+            div.style.animation = 'run2 2s ease-in-out 0s infinite alternate';
+            var rule = '@keyframes run2 {\
+                            from {left: 0px;}\
+                            to {left: 300px; border-radius: 50%; background-color: aqua; transform: rotate(1440deg)}\
+                        }';
+            var style = document.createElement('style');
+            style.type = 'text/css';
+            style.innerHTML = rule;
+            document.getElementsByTagName('head')[0].appendChild(style);
+        })();
+    </script>
+
 </body>
 </html>
