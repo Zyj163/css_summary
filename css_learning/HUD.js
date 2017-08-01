@@ -314,6 +314,131 @@ function showInfo(message, image, frontColor, textColor, backgroundColor, autoHi
     }
 }
 
+function AlertButton(text, textColor, clickOn) {
+    this.text = text;
+    this.textColor = textColor;
+    this.clickOn = clickOn;
+}
+
+function showAlert(title, message, buttons) {
+    hideAlert();
+
+    if (!buttons || buttons.length == 0) {
+        buttons = [];
+        var button = new AlertButton('确定', 'red', function(){
+            hideAlert();
+        });
+        buttons.push(button);
+    }
+
+    var _PageHeight = $(document.body).height(),
+        _PageWidth = $(document.body).width();
+
+    var titleFont = 17;
+    var messageFont = 14;
+    var buttonTextFont = 16;
+
+    var paddingLR = 25;
+
+    var titleColor = '#222';
+    var messageColor = '#555';
+
+    var maxW = _PageWidth * 0.9;
+    var realW = 0;
+    var tmpMessageW = message.length * messageFont + paddingLR * 2;
+    var tmpTitleW = title.length * titleFont + paddingLR * 2;
+    var tmpMaxW = Math.max(tmpMessageW, tmpTitleW);
+    if (tmpMaxW < _PageWidth * 0.5) tmpMaxW = _PageWidth * 0.5;
+    if (tmpMaxW > maxW) {
+        realW = maxW;
+    } else {
+        realW = tmpMaxW;
+    }
+
+    var titleStyle = 'color: '+titleColor+';' +
+        'font-size: '+titleFont+'px;' +
+        'padding-left: '+paddingLR+'px;' +
+        'padding-right: '+paddingLR+'px;' +
+        'padding-top: '+paddingLR+'px;';
+
+    var messageStyle = 'color: '+messageColor+';' +
+        'font-size: '+messageFont+'px;' +
+        'padding-left: '+paddingLR+'px;' +
+        'padding-right: '+paddingLR+'px;' +
+        'text-align: left;' +
+        'padding-top: '+paddingLR+'px;';
+
+    var buttonStyles = [];
+    for (var i=0; i<buttons.length; i++) {
+        var button = buttons[i];
+        var buttonW = 1/buttons.length * 100;
+        var buttonStyle = 'color: '+button.textColor+';' +
+            'font-size: '+buttonTextFont+'px;' +
+            'line-height: '+(buttonTextFont * 2)+'px;' +
+            'text-align: center;' +
+            'display: inline-block;' +
+            'width: '+buttonW+'%;';
+        buttonStyles.push(buttonStyle);
+    }
+
+    var buttonsStyle = 'border-top-color: #ccc;' +
+        'border-top-width: 1px;' +
+        'border-top-style: solid;' +
+        'padding-top: '+(paddingLR*0.5)+'px;' +
+        'padding-bottom: '+(paddingLR*0.5)+'px;' +
+        'margin-top: '+paddingLR+'px;';
+
+    var backgroundStyle = 'background-color: rgba(0, 0, 0, 0.6);' +
+        'position:fixed;' +
+        'left:0;' +
+        'width:100%;' +
+        'height:100%;' +
+        'top:0;' +
+        'z-index:10000;';
+
+    var frontStyle = 'position: absolute;' +
+        ' cursor1: wait;' +
+        ' left: 50%;' +
+        ' top: 50%;' +
+        ' transform: translate(-50%, -50%);' +
+        ' width: '+realW+'px;' +
+        ' height: auto;' +
+        ' border-radius: 5px;' +
+        ' background-color: #fff;' +
+        ' text-align: center';
+
+    var backgroundHtml = '<header id="alertDiv" style="'+backgroundStyle+'"></header>';
+
+    var frontHtml = '<div style="'+frontStyle+'"></div>';
+    var titleHtml = title ? '<div style="'+titleStyle+'">'+title+'</div>' : '';
+    var messageHtml = message ? '<div style="'+messageStyle+'">'+message+'</div>' : '';
+    var buttonsHtml = '';
+    for (var i=0; i<buttons.length; i++) {
+        var button = buttons[i];
+        var buttonHtml = '<div id="alertButton'+i+'" style="'+buttonStyles[i]+'">'+button.text+'</div>';
+        buttonsHtml += buttonHtml;
+    }
+    buttonsHtml = '<div style="'+buttonsStyle+'">' + buttonsHtml + '</div>';
+
+    var resultHtml = frontHtml.substr(0, frontHtml.length - '</div>'.length);
+    resultHtml += titleHtml;
+    resultHtml += messageHtml;
+    resultHtml += buttonsHtml;
+    resultHtml += '</div>';
+    resultHtml = backgroundHtml.substr(0, backgroundHtml.length - '</header>'.length) + resultHtml + '</header>';
+
+    $('body').append(resultHtml);
+
+    for (var i=0; i<buttons.length; i++) {
+        var button = buttons[i];
+        $('#alertButton' + i).click(button.clickOn);
+    }
+}
+
+function hideAlert() {
+    $('#alertDiv').remove();
+}
+
 function fixString(str) {
     if (!str || str == 'null' || str == 'nil' || str == 'undefine'){
         return ''
